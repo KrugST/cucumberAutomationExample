@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.samsclub.automation</groupId>
+    <artifactId>SamsClubAutomation-Mobile</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>7.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.45.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>1.2.5</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-jvm-deps</artifactId>
+            <version>1.0.5</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>1.2.5</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-picocontainer -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.14.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>3.8.0</version>
+        </dependency>
+
+        <!-- add dependency for cucumber extent report-->
+        <dependency>
+            <groupId>com.vimalselvam</groupId>
+            <artifactId>cucumber-extentsreport</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <!-- extent report dependency-->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.temyers</groupId>
+                <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+                <version>4.2.0</version>
+                <executions>
+                    <execution>
+                        <id>generateRunners</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>generateRunners</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>src/test/java</outputDirectory>
+                            <!-- -->
+                            <glue>com.automation.steps</glue>
+                            <featuresDirectory>src/test/resources/Mobile/regression_features</featuresDirectory>
+                            <cucumberOutputDir>target</cucumberOutputDir>
+                            <tags>
+                                <tag>${testTag}</tag>
+                            </tags>
+                            <namingScheme>simple</namingScheme>
+                            <namingPattern>Parallel{c}IT</namingPattern>
+                            <parallelScheme>SCENARIO</parallelScheme>
+                            <packageName>output</packageName>
+                            <useTestNG>true</useTestNG>
+                            <plugins>
+                                <plugin>
+                                    <name>com.automation.mobile.listener.TestCucumberListener</name>
+                                </plugin>
+                            </plugins>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>3.15.0</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>Digital-Automation-Mobile</projectName>  <!-- Replace with project name -->
+                            <outputDirectory>target/cucumber-reports/advanced-reports</outputDirectory>
+                            <cucumberOutput>target/cucumber-reports/CucumberTestReport.json</cucumberOutput>
+                            <buildNumber>1</buildNumber>
+                            <parallelTesting>false</parallelTesting>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
